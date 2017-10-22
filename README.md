@@ -17,8 +17,10 @@
 10. Go to Project > Build Settings > All > Framework Search Paths > Copy the path of your **FacebookSDK** folder and paste it there
 
 ### Configure info.plist folder
+
 11. Add the following info to your info.plist inside the IOS folder > projectName (to make it easier, go to quick start and copy the prefilled information)
 
+```
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -32,10 +34,12 @@
 	<string>{your-app-id}</string>
 	<key>FacebookDisplayName</key>
 	<string>{your-app-name}</string>
+```
 
 ### Connect App Delegate
 Add the following to your AppDelegate.m file. 
 
+```
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 - (BOOL)application:(UIApplication *)application 
@@ -50,5 +54,6 @@ Add the following to your AppDelegate.m file.
   // Add any custom logic here.
   return handled;
 }
+```
 
 12. Add Facebook Login as a product in your Facebook app dashboard
