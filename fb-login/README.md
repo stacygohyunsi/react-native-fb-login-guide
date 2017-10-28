@@ -1,6 +1,94 @@
 # Setup
 Adding a facebook login for react-native
 
+## Android
+My react-native version is 0.29. 
+
+### MainApplication.java
+In `MainApplication.java`, add the following code to it.
+
+```
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.facebook.appevents.AppEventsLogger;
+...
+public class MainApplication extends Application implements ReactApplication {
+
+  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+
+  protected static CallbackManager getCallbackManager() {
+    return mCallbackManager;
+  }
+```
+```
+@Override
+public void onCreate() {
+  super.onCreate();
+  FacebookSdk.sdkInitialize(getApplicationContext());
+  // If you want to use AppEventsLogger to log events.
+  AppEventsLogger.activateApp(this);
+}
+```
+
+Register sdk package in method `getPackages()`.
+```
+private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+    @Override
+    public boolean getUseDeveloperSupport() {
+      return BuildConfig.DEBUG;
+    }
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),
+          new FBSDKPackage(mCallbackManager)
+      );
+    }
+};
+```
+
+### MainActivity.java
+Override `onActivityResult()` method
+```
+import android.content.Intent;
+
+public class MainActivity extends ReactActivity {
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        MainApplication.getCallbackManager().onActivityResult(requestCode, resultCode, data);
+    }
+    //...
+```
+
+### build.gradle
+In `android > build.gradle`, add `mavenCentral()` to `buildscript { repositories {}}`.
+
+In `android > app > build.gradle`, add `compile 'com.facebook.android:facebook-android-sdk:[4,5)'` to `dependencies {}`.
+
+### strings.xml
+In `strings.xml`, add a new string with the name facebook_app_id and value as your Facebook App ID.
+```
+<string name="facebook_app_id">546333345453755</string>    
+```
+
+### AndroidManifest.xml
+Add a uses-permission element to the manifest
+```
+<uses-permission android:name="android.permission.INTERNET"/>
+```
+
+```
+<application android:label="@string/app_name" ...>
+    ...
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+    ...
+</application>
+```
+
 ## IOS
 1. yarn add react-native-fbsdk
 2. react-native link
