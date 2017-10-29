@@ -6,7 +6,8 @@ To change the background color within the app, it is not possible to have a comm
 # Changing the RootView color
 Change the `RootView` color. `RootView` is a white flash just after the splash page of the app. 
 
-![](https://3lhowb48prep40031529g5yj-wpengine.netdna-ssl.com/wp-content/uploads/2015/11/white-blip.gif)
+![](https://3lhowb48prep40031529g5yj-wpengine.netdna-ssl.com/wp-content/uploads/2015/11/white-blip.gif) 
+*image source: https://moduscreate.com/changing-the-react-native-rootview-background-color-ios-and-android/*
 
 ## IOS
 
